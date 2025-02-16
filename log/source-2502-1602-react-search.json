@@ -1,5 +1,5 @@
 {
-  "content": "<p>Init the value with search params like this:</p>\n<pre><code class=\"typescript language-typescript\">const urlParams = new URLSearchParams(window.location.search)\nconst defaultQuery = urlParams.get('searchKey') || ''\nconst [query, setQuery] = useState(defaultQuery)\n</code></pre>\n<p>Update the search params with query value like this:</p>\n<pre><code class=\"typescript language-typescript\">const urlParams = new URLSearchParams()\nurlParams.set('searchKey', query)\nwindow.history.replaceState({}, '', window.location.pathname + '?' + urlParams.toString())\n</code></pre>",
+  "content": "<p>Init the value with search params like this:</p>\n<pre><code>const urlParams = new URLSearchParams(window.location.search)\nconst defaultQuery = urlParams.get('searchKey') || ''\nconst [query, setQuery] = useState(defaultQuery)\n</code></pre>\n<p>Update the search params with query value like this:</p>\n<pre><code>const urlParams = new URLSearchParams()\nurlParams.set('searchKey', query)\nwindow.history.replaceState({}, '', window.location.pathname + '?' + urlParams.toString())\n</code></pre>",
   "id": "source-2502-1602-react-search",
   "tags": [
     "react",
