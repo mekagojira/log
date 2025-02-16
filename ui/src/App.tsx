@@ -10,6 +10,7 @@ interface Resource {
   title: string
   content: string
   tags: string[]
+  text: string
 }
 
 showdown.setFlavor('github')
@@ -32,9 +33,11 @@ function App() {
       const data = await response.json()
       for await (const resource of data) {
         const response = await (await fetch(RESOURCE_ROOT + resource)).text()
-        const content = converter.makeHtml(response)
+        const text = response
         const lines = response.split('\n')
         const firstLine = lines[0].replace(/^# */, '')
+
+        const content = converter.makeHtml(lines.slice(1).join('\n'))
         const title = firstLine
         const tags = title.match(/\[(.+?)\]/)?.[1].split(',') || []
 
@@ -43,13 +46,13 @@ function App() {
           id: resource,
           tags: tags.map(item => item.trim()),
           title: title.split('[')[0].trim(),
+          text: text,
         })
       }
     } catch (e) {
       console.error(e)
     } finally {
-      console.log(fetched)
-      setResources({ list: fetched, searcher: new FuzzySearch(fetched, ['title', 'content'], { caseSensitive: false }) })
+      setResources({ list: fetched, searcher: new FuzzySearch(fetched, ['title', 'text'], { caseSensitive: false }) })
     }
   }
 
