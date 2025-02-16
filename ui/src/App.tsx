@@ -16,7 +16,6 @@ interface Resource {
 showdown.setFlavor('github')
 
 function App() {
-  const converter = new showdown.Converter()
   const urlParams = new URLSearchParams(window.location.search)
   const defaultQuery = urlParams.get('s') || ''
   const [query, setQuery] = useState(defaultQuery)
@@ -31,28 +30,20 @@ function App() {
     try {
       const response = await fetch(RESOURCE_LINK)
       const data = await response.json()
-      for await (const resource of data) {
-        const response = await (await fetch(RESOURCE_ROOT + resource)).text()
-        const text = response
-        const lines = response.split('\n')
-        const firstLine = lines[0].replace(/^# */, '')
 
-        const content = converter.makeHtml(lines.slice(1).join('\n'))
-        const title = firstLine
-        const tags = title.match(/\[(.+?)\]/)?.[1].split(',') || []
-
-        fetched.push({
-          content,
-          id: resource,
-          tags: tags.map(item => item.trim()),
-          title: title.split('[')[0].trim(),
-          text: text,
+      for (const resource of data) {
+        const responsePromise = fetch(RESOURCE_ROOT + resource).then(res => res.json())
+        const promise = new Promise<Resource>(resolve => {
+          responsePromise.then(response => {
+            fetched.push(response)
+            setResources({ list: fetched, searcher: new FuzzySearch(fetched, ['title', 'text'], { caseSensitive: false }) })
+            resolve(response)
+          })
         })
+        await promise
       }
     } catch (e) {
       console.error(e)
-    } finally {
-      setResources({ list: fetched, searcher: new FuzzySearch(fetched, ['title', 'text'], { caseSensitive: false }) })
     }
   }
 
