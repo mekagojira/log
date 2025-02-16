@@ -31,4 +31,11 @@ for (const f of files) {
   fs.writeFileSync(`./log/${fileId}`, f.content)
 }
 
-fs.writeFileSync(`./log/resource.json`, JSON.stringify(resource, null, 2))
+fs.writeFileSync(
+  `./log/resource.json`,
+  JSON.stringify(
+    resource.sort((a, b) => b.localeCompare(a)),
+    null,
+    2
+  )
+)
