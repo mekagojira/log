@@ -1,1 +1,1 @@
-[{}]
+[{"id":"250216-air-env","title":"Read .env with air","content":"[Source](https://github.com/air-verse/air/issues/58#issuecomment-898537034)\nUpdate .air.yaml to this to make air reading argument from .env file:\n```\n[build]\nbin = \";export $(grep -v '^#' ..env | xargs); ./tmp/main\"\ncmd = \"go build -o ./tmp/main .\"\n\n```","tags":["go"]}]
