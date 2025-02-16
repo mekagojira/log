@@ -1,6 +1,6 @@
 # Read .env with air [go]
 
-Update .air.yaml to this to make air reading argument from .env file:
+Update .air.yaml:
 
 ```
 [build]
