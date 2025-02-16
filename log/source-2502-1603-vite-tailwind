@@ -1,6 +1,6 @@
 # Install Tailwind in vite [react,taiwind,vite]
 
-Tailwind v4.0 now can be installed in Vite project easier than ever.
+Tailwind v4.0 now can be installed in Vite projects easier than ever.
 
 ```
 pnpm i tailwindcss @tailwindcss/vite
