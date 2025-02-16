@@ -9,13 +9,13 @@ body {
 }
 
 #content pre {
-    margin: .5rem 0;
+    margin: 1rem 0;
     width: 100%;
     overflow: auto;
     padding: .5rem .7rem;
     border: 1px solid #50FA7B;
     border-radius: .25rem;
-    box-shadow: 0 10px 20px #50FA7B;
+    box-shadow: 0 6px 12px #50FA7B;
 }
 
 #content pre code {
