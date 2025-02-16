@@ -31,18 +31,24 @@ function App() {
       const response = await fetch(RESOURCE_LINK)
       const data = await response.json()
       for await (const resource of data) {
-        const response = await fetch(RESOURCE_ROOT + resource)
-        const resourceList = (await response.json()) as Resource[]
-        resourceList.forEach(r =>
-          fetched.push({
-            ...r,
-            content: converter.makeHtml(r.content),
-          })
-        )
+        const response = await (await fetch(RESOURCE_ROOT + resource)).text()
+        const content = converter.makeHtml(response)
+        const lines = response.split('\n')
+        const firstLine = lines[0].replace(/^# */, '')
+        const title = firstLine
+        const tags = title.match(/\[(.+?)\]/)?.[1].split(',') || []
+
+        fetched.push({
+          content,
+          id: resource,
+          tags: tags.map(item => item.trim()),
+          title: title.split('[')[0].trim(),
+        })
       }
     } catch (e) {
       console.error(e)
     } finally {
+      console.log(fetched)
       setResources({ list: fetched, searcher: new FuzzySearch(fetched, ['title', 'content'], { caseSensitive: false }) })
     }
   }

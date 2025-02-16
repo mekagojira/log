@@ -1,4 +1,4 @@
-# How to sync state value with search params [react]
+# How to sync state value with search params [react,web]
 
 Init the value with search params like this:
 
