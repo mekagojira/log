@@ -16,7 +16,9 @@ showdown.setFlavor('github')
 
 function App() {
   const converter = new showdown.Converter()
-  const [query, setQuery] = useState('')
+  const urlParams = new URLSearchParams(window.location.search)
+  const defaultQuery = urlParams.get('s') || ''
+  const [query, setQuery] = useState(defaultQuery)
   const [resources, setResources] = useState<{ list: Resource[]; searcher: FuzzySearch<Resource> }>({ list: [], searcher: new FuzzySearch([]) })
 
   useEffect(() => {
@@ -48,16 +50,19 @@ function App() {
   const search = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value
     setQuery(query)
+    const urlParams = new URLSearchParams(window.location.search)
+    urlParams.set('s', query)
+    window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`)
   }
 
   return (
     <main className="min-h-screen bg-dracula-bg text-dracula-fg">
       <div className="container mx-auto px-4 py-8 text-md md:text-md font-display">
-        <input className="px-3 py-4 w-full bg-dracula-purple shadow-lg border-3 border-dracula-purple rounded-lg" placeholder="Search" onChange={search} />
+        <input className="px-3 py-4 w-full bg-dracula-purple shadow-lg border-3 border-dracula-purple rounded-lg" placeholder="Search" value={query} onChange={search} autoFocus />
         {resources.searcher.search(query).map(resource => {
           return (
             <div className="w-full p-4 bg-dracula-bg shadow-xl rounded-lg border-2 border-dracula-purple overflow-hidden mt-4 hover:shadow-xl" key={resource.id}>
-              <div className="text-dracula-green font-bold text-xl border-b border-dracula-green pb-2">{resource.id}</div>
+              <div className="text-dracula-green font-bold text-xl border-b border-dracula-green pb-2">{resource.title}</div>
               <div className="flex text-white text-md md:text-md pt-4">
                 <div id="content" className="w-full" dangerouslySetInnerHTML={{ __html: resource.content }} />
               </div>
