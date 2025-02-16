@@ -1,0 +1,32 @@
+name: Build content
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'source/**'
+
+jobs:
+  run-bun:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Run the Bun script
+        run: bun build.ts
+
+      - name: Commit new files
+        run: |
+          git config --local user.name "github-actions"
+          git config --local user.email "github-actions@github.com"
+          git add .
+          git commit -m "Build source" || echo "No changes to commit"  # Avoid failure if no changes
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
