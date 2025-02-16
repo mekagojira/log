@@ -1,0 +1,11 @@
+{
+  "content": "<p>Tailwind v4.0 now can be installed in Vite projects easier than ever.</p>\n<pre><code>pnpm i tailwindcss @tailwindcss/vite\n</code></pre>\n<p>Update vite.config.js</p>\n<pre><code>import { defineConfig } from 'vite'\nimport react from '@vitejs/plugin-react'\nimport tailwindcss from '@tailwindcss/vite'\n\nexport default defineConfig({\n  plugins: [react(), tailwindcss()],\n})\n</code></pre>\n<p>Update css</p>\n<pre><code>@import \"tailwindcss\";\n</code></pre>",
+  "id": "source-2502-1603-vite-tailwind",
+  "tags": [
+    "react",
+    "taiwind",
+    "vite"
+  ],
+  "title": "Install Tailwind in vite",
+  "text": "Tailwind v4.0 now can be installed in Vite projects easier than ever. pnpm i tailwindcss @tailwindcss/vite Update vite.config.js import { defineConfig } from 'vite' import react from '@vitejs/plugin-react' import tailwindcss from '@tailwindcss/vite' export default defineConfig({ plugins: [react(), tailwindcss()], }) Update css @import \"tailwindcss\";"
+}

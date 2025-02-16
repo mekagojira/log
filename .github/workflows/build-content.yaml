@@ -19,7 +19,9 @@ jobs:
         uses: oven-sh/setup-bun@v2
 
       - name: Run the Bun script
-        run: bun build.ts
+        run: |
+          bun install
+          bun build.ts
 
       - name: Commit new files
         run: |

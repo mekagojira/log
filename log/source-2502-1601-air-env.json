@@ -1,0 +1,9 @@
+{
+  "content": "<p>Update .air.yaml to this to make air reading argument from .env file:</p>\n<pre><code>[build]\nbin = \";export $(grep -v '^#' ..env | xargs); ./tmp/main\"\ncmd = \"go build -o ./tmp/main .\"\n</code></pre>",
+  "id": "source-2502-1601-air-env",
+  "tags": [
+    "go"
+  ],
+  "title": "Read .env with air",
+  "text": "Update .air.yaml to this to make air reading argument from .env file: [build] bin = \";export $(grep -v '^#' ..env | xargs); ./tmp/main\" cmd = \"go build -o ./tmp/main .\""
+}
