@@ -32,9 +32,8 @@ for (const dir of fs.readdirSync(sourceDir)) {
 fs.rmSync('./log', { recursive: true, force: true })
 fs.mkdirSync('./log')
 
-const resource: string[] = []
+const ids: string[] = []
 
-const fetched: Resource[] = []
 for (const f of files) {
   const fileId = f.fileName.replace(/\.md$/, '').replaceAll('/', '-')
   const response = fs.readFileSync(f.fileName, 'utf8')
@@ -61,15 +60,15 @@ for (const f of files) {
     text: text,
   }
 
+  ids.push(fileId + '.json')
+
   fs.writeFileSync(`./log/${fileId}.json`, JSON.stringify(resource, null, 2))
 }
-
-console.log(fetched)
 
 fs.writeFileSync(
   `./log/resource.json`,
   JSON.stringify(
-    fetched.sort((a, b) => b.id.localeCompare(a.id)),
+    ids.sort((a, b) => b.localeCompare(a)),
     null,
     2
   )
