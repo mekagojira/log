@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'source/**'
+      - '.github/**'
 
 jobs:
   run-bun:
@@ -28,7 +29,7 @@ jobs:
           git config --local user.name "github-actions"
           git config --local user.email "github-actions@github.com"
           git add .
-          git commit -m "Build source" || echo "No changes to commit"  # Avoid failure if no changes
-          git push origin HEAD:build  # Push changes to the build branch
+          git commit -m "Build source" || echo "No changes to commit"
+          git push origin HEAD:build  -f
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
