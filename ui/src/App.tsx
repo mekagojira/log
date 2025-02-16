@@ -73,7 +73,7 @@ function App() {
                 <div id="content" className="w-full" dangerouslySetInnerHTML={{ __html: resource.content }} />
               </div>
               <div className="pt-2" />
-              <div className="flex flex-wrap">
+              <div className="flex flex-wrap space-x-2">
                 {resource.tags.map((tag, i) => (
                   <div key={resource.id + '.' + i} className="px-3 py-1 shadow-xl bg-dracula-purple rounded-md">
                     {tag}
