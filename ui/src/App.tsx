@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import showdown from 'showdown'
 import FuzzySearch from 'fuzzy-search'
 
-const RESOURCE_ROOT = 'https://raw.githubusercontent.com/mekagojira/log/refs/heads/main/log/'
+const RESOURCE_ROOT = 'https://raw.githubusercontent.com/mekagojira/log/refs/heads/heads/log/'
 const RESOURCE_LINK = RESOURCE_ROOT + 'resource.json'
 
 interface Resource {
